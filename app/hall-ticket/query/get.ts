@@ -1,8 +1,6 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import {
-  getCandidateAction,
-  getCandidateHallTicketAction,
-} from "@/lib/action";
+import { getCandidateHallTicketAction } from "../lib/action";
+import { getCandidateAction } from "@/app/candidate/lib/action";
 
 // ── List all candidates ──
 
