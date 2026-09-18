@@ -28,17 +28,15 @@ export function DataTable<TData extends RowData>({
         columns,
     })
 
-    const colWidth = `${100 / (columns.length || 1)}%`
-
     return (
         <div className="overflow-hidden rounded-md border">
-            <Table className="w-full table-fixed">
+            <Table className="w-full">
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => {
                                 return (
-                                    <TableHead key={header.id} style={{ width: colWidth }}>
+                                    <TableHead key={header.id}>
                                         {header.isPlaceholder ? null : (
                                             <table.FlexRender header={header} />
                                         )}
@@ -56,7 +54,7 @@ export function DataTable<TData extends RowData>({
                                 data-state={row.getIsSelected() && "selected"}
                             >
                                 {row.getVisibleCells().map((cell) => (
-                                    <TableCell key={cell.id} className="truncate">
+                                    <TableCell key={cell.id}>
                                         <table.FlexRender cell={cell} />
                                     </TableCell>
                                 ))}

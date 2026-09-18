@@ -1,9 +1,10 @@
-import { ExamTableView } from "./_component/exam-table-view"
+import { ContentLayout } from "@/components/admin-panel/content-layout";
+import { ExamTableView } from "./_component/exam-table-view";
 
 export default function ExamPage() {
-    return (
-        <div className="container mx-auto py-10">
-            <ExamTableView />
-        </div>
-    )
+  return (
+    <ContentLayout title="Exams">
+      <ExamTableView />
+    </ContentLayout>
+  );
 }

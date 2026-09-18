@@ -48,13 +48,6 @@ export function ExamTableView() {
 
     return (
         <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1">
-                <h1 className="text-2xl font-bold tracking-tight">Exam Details</h1>
-                <p className="text-muted-foreground">
-                    View and manage examination schedules, posts, and exam centers.
-                </p>
-            </div>
-
             {/* Filter Toolbar */}
             <div className="flex items-center gap-3">
                 <div className="relative w-full sm:w-72">
