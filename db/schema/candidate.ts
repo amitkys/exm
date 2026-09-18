@@ -7,6 +7,7 @@ export const cast_category = pgEnum('cast_category', ['General', 'EBC', 'BC', 'S
 export const eligiblity_status = pgEnum('eligiblity_status', ['ELIGIBLE', 'NOT_ELIGIBLE'])
 export const candidateTable = pgTable('candidate', {
     id: text().primaryKey().$defaultFn(() => createId()),
+    exam_id: text("exam_id").references(() => examDetailsTable.id),
     name: text().notNull(),
     roll: integer().unique().notNull(),
     fathers_name: text().notNull(),
@@ -32,4 +33,3 @@ export const examDetailsTable = pgTable('exam_details', {
     reporting: text(),
     center: text(),
 })
-

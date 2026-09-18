@@ -15,4 +15,16 @@ export const relations = defineRelations(schema, (r) => ({
             to: r.usersTable.id,
         }),
     },
+    examDetailsTable: {
+        candidate: r.many.candidateTable({
+            from: r.examDetailsTable.id,
+            to: r.candidateTable.exam_id,
+        }),
+    },
+    candidateTable: {
+        examDetails: r.one.examDetailsTable({
+            from: r.candidateTable.exam_id,
+            to: r.examDetailsTable.id,
+        }),
+    },
 }));
