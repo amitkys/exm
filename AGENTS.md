@@ -82,3 +82,13 @@ Detailed guidelines and workflow patterns are modularized in `.agents/`:
 - **Loading Spinner Architecture**: [`.agents/skills/spinner/SKILL.md`](file:///home/kys/projects/mm/.agents/skills/spinner/SKILL.md)
 - **Zustand State Management**: [`.agents/skills/zustand/SKILL.md`](file:///home/kys/projects/mm/.agents/skills/zustand/SKILL.md)
 - **React Hook Form + Zod + shadcn**: [`.agents/skills/react-hook-form/SKILL.md`](file:///home/kys/projects/mm/.agents/skills/react-hook-form/SKILL.md)
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
