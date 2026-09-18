@@ -5,29 +5,47 @@ import { examDetailsTable } from "@/db/schema/candidate";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    const isArray = Array.isArray(body);
+    const items = isArray ? body : [body];
 
-    // Validate date format (YYYY-MM-DD)
-    if (body.date && !/^\d{4}-\d{2}-\d{2}$/.test(body.date)) {
+    if (items.length === 0) {
       return NextResponse.json(
-        { success: false, error: "Invalid date format. Use YYYY-MM-DD" },
+        { success: false, error: "Exam list cannot be empty" },
         { status: 400 }
       );
     }
 
+    // Validate each item
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      if (item.date && !/^\d{4}-\d{2}-\d{2}$/.test(item.date)) {
+        return NextResponse.json(
+          { success: false, error: `Invalid date format at index ${i}. Use YYYY-MM-DD` },
+          { status: 400 }
+        );
+      }
+    }
+
+    const recordsToInsert = items.map((item) => ({
+      name: item.name ?? null,
+      post: item.post ?? null,
+      date: item.date ?? null,
+      time: item.time ?? null,
+      reporting: item.reporting ?? null,
+      center: item.center ?? null,
+    }));
+
     const inserted = await db
       .insert(examDetailsTable)
-      .values({
-        name: body.name ?? null,
-        post: body.post ?? null,
-        date: body.date ?? null,
-        time: body.time ?? null,
-        reporting: body.reporting ?? null,
-        center: body.center ?? null,
-      })
+      .values(recordsToInsert)
       .returning();
 
     return NextResponse.json(
-      { success: true, data: inserted[0] },
+      {
+        success: true,
+        count: inserted.length,
+        data: isArray ? inserted : inserted[0],
+      },
       { status: 201 }
     );
   } catch (error: any) {

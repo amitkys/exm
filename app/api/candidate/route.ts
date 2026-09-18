@@ -5,50 +5,69 @@ import { candidateTable } from "@/db/schema/candidate";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    const isArray = Array.isArray(body);
+    const items = isArray ? body : [body];
 
-    // Validate required fields
+    if (items.length === 0) {
+      return NextResponse.json(
+        { success: false, error: "Candidate list cannot be empty" },
+        { status: 400 }
+      );
+    }
+
     const required = ["name", "roll", "fathers_name", "address", "phone", "category", "email", "dob"];
-    for (const field of required) {
-      if (body[field] === undefined || body[field] === null) {
+
+    // Validate each item
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      for (const field of required) {
+        if (item[field] === undefined || item[field] === null) {
+          return NextResponse.json(
+            { success: false, error: `Missing required field '${field}' at index ${i}` },
+            { status: 400 }
+          );
+        }
+      }
+
+      // Validate date format (YYYY-MM-DD)
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(item.dob)) {
         return NextResponse.json(
-          { success: false, error: `Missing required field: ${field}` },
+          { success: false, error: `Invalid dob format at index ${i}. Use YYYY-MM-DD` },
           { status: 400 }
         );
       }
     }
 
-    // Validate date format (YYYY-MM-DD)
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(body.dob)) {
-      return NextResponse.json(
-        { success: false, error: "Invalid dob format. Use YYYY-MM-DD" },
-        { status: 400 }
-      );
-    }
+    const recordsToInsert = items.map((item) => ({
+      exam_id: item.exam_id ?? null,
+      name: item.name,
+      roll: item.roll,
+      fathers_name: item.fathers_name,
+      address: item.address,
+      phone: item.phone,
+      category: item.category,
+      email: item.email,
+      dob: item.dob,
+      eligiblity: item.eligiblity ?? null,
+      signature: item.signature ?? null,
+      profile: item.profile ?? null,
+    }));
 
     const inserted = await db
       .insert(candidateTable)
-      .values({
-        exam_id: body.exam_id ?? null,
-        name: body.name,
-        roll: body.roll,
-        fathers_name: body.fathers_name,
-        address: body.address,
-        phone: body.phone,
-        category: body.category,
-        email: body.email,
-        dob: body.dob,
-        eligiblity: body.eligiblity ?? null,
-        signature: body.signature ?? null,
-        profile: body.profile ?? null,
-      })
+      .values(recordsToInsert)
       .returning();
 
     return NextResponse.json(
-      { success: true, data: inserted[0] },
+      {
+        success: true,
+        count: inserted.length,
+        data: isArray ? inserted : inserted[0],
+      },
       { status: 201 }
     );
   } catch (error: any) {
-    console.error("Error inserting candidate:", error);
+    console.error("Error inserting candidate(s):", error);
     return NextResponse.json(
       { success: false, error: error.message },
       { status: 500 }
