@@ -12,7 +12,7 @@ export const candidateTable = pgTable('candidate', {
     roll: integer().unique().notNull(),
     fathers_name: text().notNull(),
     address: text().notNull(),
-    phone: integer().notNull(),
+    phone: text().notNull(),
     category: cast_category().notNull(),
     email: text().unique().notNull(),
     dob: date().notNull(),
