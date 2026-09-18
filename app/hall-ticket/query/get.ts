@@ -37,6 +37,6 @@ export function getCandidateHallTicketQuery(candidateId: string) {
   });
 }
 
-export function useGetCandidateHallTicketQuery(candidateId: string) {    
+export function useGetCandidateHallTicketQuery(candidateId: string) {
   return useQuery(getCandidateHallTicketQuery(candidateId));
 }
