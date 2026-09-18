@@ -1,0 +1,318 @@
+/* ── Hall Ticket / Admit Card ── */
+/* Print-friendly, A4-sized hall ticket template */
+
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 12mm 14mm;
+  background: #fff;
+  color: #111;
+  font-family: var(--font-sans), "Inter", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  box-sizing: border-box;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+
+.collegeName {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 2px;
+  letter-spacing: -0.3px;
+}
+
+.hallTicketTitle {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 0 2px;
+  color: #222;
+}
+
+.examTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+/* ── Sections (bordered blocks) ── */
+.section {
+  border: 1.5px solid #333;
+  margin-bottom: 10px;
+}
+
+.sectionHeader {
+  background: #e5e5e5;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #111;
+  border-bottom: 1px solid #333;
+}
+
+/* ── Exam Details Grid (3-column rows) ── */
+.examGrid {
+  display: grid;
+  grid-template-columns: 160px 1fr 150px 1fr;
+  border-collapse: collapse;
+}
+
+.examGrid > div {
+  padding: 6px 10px;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  font-size: 13px;
+}
+
+.examGrid > div:nth-child(4n) {
+  border-right: none;
+}
+
+.examGrid > div:nth-last-child(-n + 4) {
+  border-bottom: none;
+}
+
+.examNameLabel {
+  grid-column: 1;
+}
+
+.examNameValue {
+  grid-column: 2 / -1;
+  border-right: none;
+}
+
+.fieldLabel {
+  font-weight: 700;
+  background: #f5f5f5;
+  color: #222;
+}
+
+.fieldValue {
+  color: #333;
+}
+
+/* ── Candidate Info (with photo) ── */
+.candidateSection {
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  border-top: none;
+}
+
+.candidateFields {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+
+.candidateFields > div {
+  padding: 7px 10px;
+  border-bottom: 1px solid #ccc;
+  font-size: 13px;
+}
+
+.candidateFields > div:nth-last-child(-n + 2) {
+  border-bottom: none;
+}
+
+.candidateFields .fieldLabel {
+  border-right: 1px solid #ccc;
+}
+
+.photoSignatureCell {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #ccc;
+  background: #fafafa;
+}
+
+.photoCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  flex: 1;
+}
+
+.photo {
+  width: 100px;
+  height: 120px;
+  object-fit: cover;
+  border: 1px solid #bbb;
+}
+
+.photoPlaceholder {
+  width: 100px;
+  height: 120px;
+  border: 1px dashed #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 11px;
+  text-align: center;
+  background: #f9f9f9;
+}
+
+.candidateSignature {
+  text-align: center;
+  padding: 4px 8px 6px;
+  border-top: 1px solid #ccc;
+}
+
+.candidateSignatureImg {
+  width: 90px;
+  height: 35px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 2px;
+}
+
+.candidateSignatureLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: #444;
+}
+
+/* ── Centre Table ── */
+.centreTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.centreTable th,
+.centreTable td {
+  padding: 7px 10px;
+  text-align: center;
+  font-size: 13px;
+  border-bottom: 1px solid #ccc;
+}
+
+.centreTable th {
+  font-weight: 700;
+  background: #f5f5f5;
+  border-bottom: 1px solid #999;
+  color: #222;
+}
+
+.centreTable td {
+  color: #333;
+}
+
+.centreTable th:not(:last-child),
+.centreTable td:not(:last-child) {
+  border-right: 1px solid #ccc;
+}
+
+.centreName {
+  font-weight: 700;
+}
+
+.centreAddress {
+  font-size: 12px;
+  color: #555;
+  margin-top: 2px;
+}
+
+/* ── Negative Marking Banner ── */
+.negativeBanner {
+  text-align: center;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #222;
+  background: #f9f9f9;
+  border: 1.5px solid #333;
+  margin-bottom: 10px;
+}
+
+/* ── Instructions ── */
+.instructionsList {
+  padding: 10px 10px 10px 28px;
+  margin: 0;
+  list-style: decimal;
+  font-size: 13px;
+  color: #333;
+  min-height: 60px;
+}
+
+.instructionsList li {
+  padding: 2px 0;
+}
+
+/* ── Signature Area ── */
+.signatureArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 24px 50px 10px;
+  margin-top: 8px;
+}
+
+.signatureBlock {
+  text-align: center;
+  min-width: 220px;
+}
+
+.signatureLine {
+  width: 220px;
+  border-top: 1.5px solid #333;
+  margin: 0 auto 6px;
+}
+
+.signatureImage {
+  width: 180px;
+  height: 55px;
+  object-fit: contain;
+  margin: 0 auto 6px;
+  display: block;
+}
+
+.signatureLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: #222;
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding-top: 10px;
+  margin-top: 6px;
+  border-top: 1px solid #999;
+  font-size: 11px;
+  color: #666;
+}
+
+/* ── Print Styles ── */
+@media print {
+  .page {
+    margin: 0;
+    padding: 10mm 12mm;
+    box-shadow: none;
+    border: none;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}
+
+/* ── Screen preview shadow ── */
+@media screen {
+  .page {
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+  }
+}
